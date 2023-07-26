@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     control.vm.box = "ubuntu/bionic64"
     control.vm.hostname = "control"
     control.vm.network "private_network", ip: "192.168.56.11"
-    control.vm.provision "shell", path: "setup.sh"
+    control.vm.provision "shell", path: "setupfiles/setup.sh"
     control.vm.provider "virtualbox" do |vb|
        vb.name = "control"
        vb.memory = "1024"
@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     node01.vm.box = "ubuntu/bionic64"
     node01.vm.hostname = "node01"
     node01.vm.network "private_network", ip: "192.168.56.12"
-    node01.vm.provision "shell", path: "setup.sh"
+    node01.vm.provision "shell", path: "setupfiles/setup.sh"
     node01.vm.provider "virtualbox" do |vb|
        vb.name = "node01"
        vb.memory = "1024"
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
     node02.vm.box = "ubuntu/bionic64"
     node02.vm.hostname = "node02"
     node02.vm.network "private_network", ip: "192.168.56.13"
-    node02.vm.provision "shell", path: "setup.sh"
+    node02.vm.provision "shell", path: "setupfiles/setup.sh"
     node02.vm.provider "virtualbox" do |vb|
        vb.name = "node02"
        vb.memory = "1500"
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
     node03.vm.box = "ubuntu/bionic64"
     node03.vm.hostname = "node03"
     node03.vm.network "private_network", ip: "192.168.56.14"
-    node03.vm.provision "shell", path: "setup.sh"
+    node03.vm.provision "shell", path: "setupfiles/setup.sh"
     node03.vm.provider "virtualbox" do |vb|
        vb.name = "node03"
        vb.memory = "1500"
