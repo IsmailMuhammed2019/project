@@ -1,0 +1,55 @@
+---
+- name: Update, upgrade, and configure passwordless SSH login for Ubuntu server
+  hosts: your_ubuntu_server
+  remote_user: your_remote_user  # Replace with the remote user on the Ubuntu server
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    # Task 1: Update and upgrade the packages on the server
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+      when: ansible_pkg_mgr == 'apt'
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+        autoremove: yes
+        autoclean: yes
+      when: ansible_pkg_mgr == 'apt'
+
+    # Task 2: Install OpenSSH server (if not already installed)
+    - name: Install OpenSSH server
+      apt:
+        name: openssh-server
+        state: present
+      when: ansible_pkg_mgr == 'apt'
+
+    # Task 3: Generate an SSH key pair on the Ansible control node (if not already generated)
+    - name: Generate SSH key pair
+      openssh_keypair:
+        path: ~/.ssh/id_rsa  # Replace with the desired path for the SSH key pair
+      register: ssh_key
+
+    # Task 4: Copy the public key to the remote server to enable passwordless SSH login
+    - name: Copy public key to remote server
+      authorized_key:
+        user: your_remote_user  # Replace with the remote user on the Ubuntu server
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"  # Use the public key generated in Task 3
+      when: ssh_key.changed
+
+    # Task 5: Configure the SSH server to allow passwordless login
+    - name: Configure SSH server for passwordless login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      notify:
+        - restart ssh
+
+  handlers:
+    - name: restart ssh
+      service:
+        name: ssh
+        state: restarted
