@@ -46,25 +46,27 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  #   config.vm.define "node04" do |node04|
-  #   node04.vm.box = "ubuntu/bionic64"
-  #   node04.vm.hostname = "node04"
-  #   node04.vm.network "private_network", ip: "192.168.56.15"
-  #   node04.vm.provision "shell", path: "setup.sh"
-  #   node04.vm.provider "virtualbox" do |vb|
-  #      vb.name = "node04"
-  #   end
-  # end
+    config.vm.define "node04" do |node04|
+    node04.vm.box = "ubuntu/bionic64"
+    node04.vm.hostname = "node04"
+    node04.vm.network "private_network", ip: "192.168.56.15"
+    node04.vm.provision "shell", path: "setup.sh"
+    node04.vm.provider "virtualbox" do |vb|
+       vb.name = "node04"
+       vb.memory = "1500"
+    end
+  end
 
-  #     config.vm.define "node05" do |node05|
-  #   node05.vm.box = "ubuntu/bionic64"
-  #   node05.vm.hostname = "node05"
-  #   node05.vm.network "private_network", ip: "192.168.56.16"
-  #   node05.vm.provision "shell", path: "setup.sh"
-  #   node05.vm.provider "virtualbox" do |vb|
-  #      vb.name = "node05"
-  #   end
-  # end
+      config.vm.define "node05" do |node05|
+    node05.vm.box = "ubuntu/bionic64"
+    node05.vm.hostname = "node05"
+    node05.vm.network "private_network", ip: "192.168.56.16"
+    node05.vm.provision "shell", path: "setup.sh"
+    node05.vm.provider "virtualbox" do |vb|
+       vb.name = "node05"
+       vb.memory = "1500"
+    end
+  end
 
 
 end
