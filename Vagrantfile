@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     node01.vm.provision "shell", path: "setup.sh"
     node01.vm.provider "virtualbox" do |vb|
        vb.name = "node01"
+       vb.memory = "1024"
     end
    end
 
@@ -30,6 +31,7 @@ Vagrant.configure("2") do |config|
     node02.vm.provision "shell", path: "setup.sh"
     node02.vm.provider "virtualbox" do |vb|
        vb.name = "node02"
+       vb.memory = "1500"
     end
   end
 
@@ -40,6 +42,7 @@ Vagrant.configure("2") do |config|
     node03.vm.provision "shell", path: "setup.sh"
     node03.vm.provider "virtualbox" do |vb|
        vb.name = "node03"
+       vb.memory = "1500"
     end
   end
 
